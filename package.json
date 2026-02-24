@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx astro dev",
-    "build": "npx astro build",
-    "preview": "npx astro preview"
+  "dev": "node ./node_modules/astro/astro.js dev",
+  "build": "node ./node_modules/astro/astro.js build",
+  "preview": "node ./node_modules/astro/astro.js preview"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
