@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+
+const year = new Date().getFullYear();
+
+// Fetch all events
+const events = await getCollection("events");
+
+// Only published ones
+const publishedEvents = events
+  .filter(e => e.data.published)
+  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
+
+// Optional: sort by year (descending)
+publishedEvents.sort((a, b) => (b.data.year ?? 0) - (a.data.year ?? 0));
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="grid">
+      <div class="card" style="grid-column: span 12; box-shadow:none; background: rgba(255,255,255,0.03);">
+        <small>
+          © {year} networkedlearning.ai
+        </small>
+
+        <div style="margin-top:10px; display:flex; gap:12px; flex-wrap:wrap;">
+          {publishedEvents.map(event => (
+            <a
+              class="btn footer-event-btn"
+              href={`/events/${(event.slug ?? event.id).replace(/\.(md|mdx)$/, "")}`}
+              style={`--accent:${event.data.accent ?? "#4aa3ff"}; --accent2:${event.data.accent2 ?? event.data.accent ?? "#4aa3ff"};`}
+            >
+              {event.data.short ?? event.data.venue}
+            </a>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</footer>

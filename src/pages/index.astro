@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry } from "astro:content";
+
+const misnc = await getEntry("events", "misnc");
+const showMisnc = !!misnc?.data?.published;
+---
+
+<BaseLayout title="networkedlearning.ai — Learning Networks in a Connected World">
+
+  <section class="hero">
+    <div class="container">
+
+      <div class="hero-split">
+
+        <div class="hero-left">
+          <div class="kicker">networkedlearning.ai</div>
+
+          <h1>Learning Networks in a Connected World</h1>
+
+          <p class="subtitle">
+            An interdisciplinary workshop initiative exploring how network science and AI
+            help us understand, model and support learning across formal,
+            informal and online environments.
+          </p>
+
+          <p>
+            Learning is inherently social and networked. This initiative examines how
+            learning networks emerge and evolve, how network structure relates to
+            engagement and outcomes, and how data-driven and AI-based methods
+            can support productive learning relationships.
+          </p>
+
+          <div class="btn-row" style="margin-top:18px;">
+            <a class="btn primary" href="/events">Explore workshops</a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <img
+            src="/images/network-hero3.png"
+            alt="Abstract visualization of interconnected learning networks"
+            class="hero-image"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>

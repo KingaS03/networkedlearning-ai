@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const events = await getCollection("events");
+  const published = events.filter((e) => e.data.published);
+
+  return published.map((entry) => ({
+    params: { slug: entry.id.replace(/\.(md|mdx)$/, '') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const nav = entry.data.nav ?? [];
+---
+
+<BaseLayout
+  title={`networkedlearning.ai — ${entry.data.venue}`}
+  description={entry.data.tagline ?? ''}
+  accent={entry.data.accent}
+  accent2={entry.data.accent2}
+>
+  <section class="hero">
+    <div class="container">
+      <div class="kicker">{entry.data.venue}</div>
+      <h1>{entry.data.title}</h1>
+
+      {(entry.data.type || entry.data.status) && (
+        <div class="meta-row" style="margin-top:10px;">
+          {entry.data.type && (
+            <span class={`pill pill-type type-${entry.data.type}`}>
+              {entry.data.type.replace("-", " ")}
+            </span>
+          )}
+          {entry.data.status && (
+            <span class={`pill pill-status status-${entry.data.status}`}>
+              {entry.data.status}
+            </span>
+          )}
+        </div>
+      )}
+
+      {entry.data.tagline && <p class="subtitle">{entry.data.tagline}</p>}
+
+      {nav.length > 0 && (
+        <div class="btn-row" style="margin-top:16px;">
+          {nav.map((n) => (
+            <a class="btn primary" href={n.href}>{n.label}</a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <Content />
+    </div>
+  </section>
+</BaseLayout>

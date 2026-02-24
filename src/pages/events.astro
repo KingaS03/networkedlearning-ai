@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry } from "astro:content";
+
+const asonam = await getEntry("events", "asonam");
+const misnc = await getEntry("events", "misnc");
+
+const showAsonam = !!asonam?.data?.published;
+const showMisnc = !!misnc?.data?.published;
+
+const asonamStatus = asonam?.data?.status ?? "upcoming";
+const misncStatus = misnc?.data?.status ?? "upcoming";
+
+const asonamType = asonam?.data?.type ?? "workshop";
+const misncType = misnc?.data?.type ?? "workshop";
+---
+
+<BaseLayout title="networkedlearning.ai — Events">
+  <section class="hero">
+    <div class="container">
+      <div class="kicker">Events</div>
+      <h1>Networked Learning Events</h1>
+      <p class="subtitle">
+        Workshops and academic gatherings exploring learning as a dynamic networked process.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        <div class={`card event-card ${!showMisnc ? "full" : ""}`}>
+          <div class="badge">ASONAM 2026 · Technical & network modeling</div>
+          <span class={`pill pill-type type-${asonamType}`}>{asonamType.replace("-", " ")}</span>
+          <span class={`pill pill-status status-${asonamStatus}`}>{asonamStatus}</span>
+          <h3>Learning Networks: Structures, Dynamics and AI Support</h3>
+          <p>Network structures, temporal dynamics, graph learning, and AI-driven interventions.</p>
+          <div class="btn-row">
+            <a class="btn primary" href="/events/asonam">Open</a>
+            <!--<a class="btn" href="/asonam#topics">Topics</a>-->
+          </div>
+        </div>
+
+        {showMisnc && (
+          <div class="card event-card" style="--accent:#ff8c00; --accent2:#20c997;">
+            <div class="badge">MISNC 2026 · Human-centered socio-technical</div>
+            <span class={`pill pill-type type-${misncType}`}>{misncType.replace("-", " ")}</span>
+            <span class={`pill pill-status status-${misncStatus}`}>{misncStatus}</span>
+            <h3>Human-Centered Learning in Complex Networks</h3>
+            <p>Trust, coordination, decision-making, and responsible AI support for learning networks.</p>
+            <div class="btn-row">
+              <a class="btn primary" href="/events/misnc">Open</a>
+              <!--<a class="btn" href="/misnc#topics">Topics</a>-->
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!--<div class="divider"></div>
+
+      <div class="card">
+        <h2 style="margin-top:0;">Future-proof structure</h2>
+        <p>
+          Each edition is a page you can update independently (dates, submission links, program). Later, you can add a Research section
+          without changing the workshop URLs.
+        </p>
+      </div>-->
+    </div>
+  </section>
+</BaseLayout>

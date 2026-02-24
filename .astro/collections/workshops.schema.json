@@ -1,0 +1,68 @@
+{
+  "$ref": "#/definitions/workshops",
+  "definitions": {
+    "workshops": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "venue": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "published": {
+          "type": "boolean",
+          "default": false
+        },
+        "tagline": {
+          "type": "string"
+        },
+        "track": {
+          "type": "string",
+          "enum": [
+            "technical",
+            "human-centered"
+          ]
+        },
+        "accent": {
+          "type": "string"
+        },
+        "accent2": {
+          "type": "string"
+        },
+        "nav": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "href": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "label",
+              "href"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "venue",
+        "year"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
